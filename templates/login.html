@@ -1,0 +1,25 @@
+{% extends 'index1.html' %}
+{% block content %}
+<div class="bhanu" style="position: absolute;top: 20%;background-color: rgb(0, 0, 0,0.4);padding: 20px;
+box-shadow: 5px 5px red;border-radius: 5px;width: 300px;justify-content: center;">
+ 	
+
+
+	<h1>Login</h1><br>
+	<form method="POST">
+	{% csrf_token %}
+ 	<input type="text" name="username" placeholder=" " required="required" style="border:none;outline:none;
+	 padding: 5px;border-radius: 5px;"><br>
+     <label>Username</label><br>
+ 	<input type="password" name="password" placeholder=" " required="required" style="border:none;outline:none;
+	 padding: 5px;border-radius: 5px;"><br>
+     <label>Password</label><br>
+ 	
+ 	<input type="submit" value="Login" href="{% url 'ecomm:index' %}" style="width: 192px;"><br><br>
+</form>
+	 
+ 	<a href="{% url 'ecomm:register' %}" style="width: 192px;">Create new account</a>
+
+ 
+ </div></div>
+{% endblock %}

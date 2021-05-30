@@ -1,0 +1,32 @@
+{% extends 'index1.html' %}
+{% block content %}
+<br><br>
+<div class="container" style="background-color: white;border-radius: 5px;">
+    <br>
+    <br>
+<div class="row">
+   
+    <div class="col-md-6">
+        
+            <b>{{d.title}}</b><br><br>
+            &nbsp;&nbsp;<p style="padding-left: 10px;">{{d.description}}</p><br><br>
+            <h3>₹{{d.price}}</h3><br><br>
+    </div>
+    <div class="col-md-6">
+
+            <img src="{{d.img.url}}" width="400" style="border-radius:5px;"><br><br>
+    </div>
+        
+        
+</div>
+<form action="{% url 'ecomm:detail' d.id d.slug %}" method="post">
+    {% csrf_token %}
+    {{ f }}
+    {% if user.is_authenticated %}
+    <input type="submit" value="Add">
+    {% else %}
+    <a href="{% url 'ecomm:login' %}" style="width: 100px;padding:5px;border: 1px solid black;">Add</a>
+    {% endif %}
+</form>
+</div>
+{% endblock %}

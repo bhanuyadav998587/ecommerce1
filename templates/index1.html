@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js">
+    <style type="text/css">
+    *{
+        padding: 0;
+        margin: 0;
+        
+    }
+   body{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       border:10px solid red;
+       background-color:white;
+   }
+   .container{
+       position: relative;
+       display: flex;
+       justify-content: left;
+       flex-wrap: wrap;
+       margin-top: 200px;
+       width: 100%;
+       transform-style: preserve-3d;
+   }
+  .container .box{
+       position: relative;
+       width: 350px;
+       height: 550px;
+       margin:5px;
+       background-color: #232323;
+       border-radius: 20px;
+       transform-style: preserve-3d;
+   }
+       
+    .container .box p{
+    position: absolute;
+    bottom:100px;
+    left: 20px;
+    font-size: 2em;
+    font-weight: 900;
+    color: white;
+    font-style: italic;
+    opacity: 0;
+       }
+       .container .box:hover{
+           box-shadow: 2px 2px 2px 2px red;
+       }
+   
+    .container .box:hover p{
+        opacity: 0.3;
+    }
+    .container .box .name{
+        
+        position: absolute;
+        text-align: center;
+        transform-style: preserve-3d;
+        top: 0;
+        left: 0;
+        color: white;
+        width: 100%;
+        font-size: 26px;
+        transform: translate3d(0,0,75px);
+        transition: 0.5s;
+        z-index: 10;
+        opacity: 0;
+    }
+    .container .box:hover .name{
+        opacity:1;
+        top: 40px;
+    }
+    .container .box .quick_look{
+        position: absolute;
+        bottom: 0;
+        left:50%;
+        width: 100px;
+        justify-content: center;
+        transform-style: preserve-3d;
+        transform:translate3d(-50%,0,75px);
+        color: red;
+        background: white;
+        padding: 10px;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: 0.5s;
+        opacity: 0;
+        z-index: 10;
+    }
+    .container .box:hover .quick_look{
+        opacity:1;
+        bottom: 40px;
+    }
+    .container .box .circle{
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        background: white;
+        width: 200px;
+        height:200px;
+        opacity: 1;
+        z-index: 10;
+        transition: 0.5s;
+        border-radius:50%;
+        transform-style: preserve-3d;
+        transform:translate3d(-50%,-50%,30px);
+    }
+    .container .box .product{
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        max-width:300px;
+        z-index: 11;
+        transition: 0.5s;
+        transform-style: preserve-3d;
+        transform: translate3d(-50%,-50%,50px) rotate(-15deg);
+
+    }
+    nav{
+        top: 0%;
+        left: 0%;
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        height: 7vh;
+        width: 100%;
+        background-color: red;
+        display: flex;
+        transform-style: preserve-3d;
+    }
+    nav .nav-1{
+        padding: 20px;
+        color: white;
+        margin-top: -10px;
+    }
+    .bhanu{
+        color: black;
+        top:20%;
+        left: 40%;
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        transform-style: preserve-3d;
+    }
+    ul{
+        position: absolute;
+        padding: 8px;
+        visibility: hidden;
+        
+    }
+    ul li{
+        padding: 15px;
+        background-color: red;
+        
+    }
+    button{
+        border:none;
+        outline: none;
+        background-color: transparent;
+        color: white;
+    }
+    h6 a{
+        color: white;
+        text-decoration: none;
+    }
+          </style>
+    
+</head>
+<body>
+    <nav>
+        <h6 class="nav-1"><img src="{% static 'yAgzK1621246993.jpg' %}" height="25" width="50" style="border-radius: 5px;"></h6>
+        <h6 class="nav-1"><a href="{% url 'ecomm:cart' %}">Cart</a></h6>
+        <h6 class="nav-1"><button onclick="function1()">Profile</button>
+            <ul  id="bloc">
+                
+                {% if user.is_authenticated %}
+                <li>Hello, {{request.user}}</li>
+                <li><a href="">Edit profile</a></li>
+                <li><a href="{% url 'ecomm:logoutpage' %}">Sign out</a></li>
+                {% else %}
+                <li><a href="{% url 'ecomm:login' %}">Sign in</a></li>
+                {% endif %}
+
+            </ul>
+        </h6>
+        <h6 class="nav-1"><a href="{% url 'ecomm:index' %}">Home</a></h6>
+        <h6 class="nav-1">About</h6>
+        <h6 class="nav-1">Services</h6>
+    </nav>
+    {% block content %}
+    <div class="bhanu">
+        <h1>Welcome !!</h1>
+    </div>
+    <div class="container">
+        {% for i in p %}
+        
+        <div class="box" id="block">
+        <h2 class="name">{{i.title}}</h2>
+        <a class = "quick_look" href="{% url 'ecomm:detail' i.id i.slug %}">Quick look</a>
+        <div class="circle"></div>
+        <p>Price : {{i.price}}</p>
+        <img src="{{i.img.url}}" class="product" height="170" width="170">
+         
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+   
+    <script src="{% static 'vanilla-tilt.min.js' %}"></script>
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".box"), {
+		max: 25,
+		speed: 400
+	});
+    </script>
+    <script>
+        function function1(){
+            var x = document.getElementById('bloc');
+            x.style.visibility="visible";
+        }
+    </script>
+</body>
+</html>

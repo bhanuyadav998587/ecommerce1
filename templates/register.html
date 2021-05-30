@@ -1,0 +1,31 @@
+{% extends 'index1.html' %}
+{% block content %}
+<div class="loginbox"  style="position: absolute;top: 20%;background-color: rgb(0, 0, 0,0.4);padding: 20px;
+box-shadow: 5px 5px red;border-radius: 5px;width: 300px;justify-content: center;align-items: center;">
+	<h1>Register</h1>
+	
+	<form method="POST">
+		{% csrf_token %}
+	
+        {{f.username.label}}<br>
+		{{f.username}}<br><br>
+		
+		
+		
+            {{f.email.label}}<br>
+			{{f.email}}<br><br>
+			
+			
+                {{f.password1.label}}<br>
+				{{f.password1}}<br><br>
+			
+                {{f.password2.label}}<br>
+				{{f.password2}}<br><br>
+				
+				
+	<input type="submit" value="Register" style="width: 192px;"><br>
+
+</form>
+<a href="{% url 'ecomm:login' %}" style="width: 192px;color: white;"><u>Log in</u></a>
+</div>
+{% endblock %}
